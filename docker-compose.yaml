@@ -1,0 +1,26 @@
+networks:
+  app-net:
+    driver: bridge #не работает на этой виртуалке
+
+services:
+  dash-app:
+    build:
+      context: ./dashapp
+      dockerfile: dockerfile
+    # ports:
+    #   - "8050:8050"
+    depends_on:
+      - django-app
+    # networks:
+    #   - app-net
+    network_mode: "host"
+
+  django-app:
+    build:
+      context: ./djangotutorial
+      dockerfile: dockerfile
+    # ports:
+    #   - "8000:8000"
+    # networks:
+    #   - app-net
+    network_mode: "host"
