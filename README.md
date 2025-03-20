@@ -1,27 +1,17 @@
 ```mermaid
-graph TD
-    subgraph System
-        style System fill:#ffffff,stroke:#000000,stroke-width:2px
+C4Context
+title Микросервисная система отслеживания данных о согласовании заявок на проведение ремонтных работ
 
-        User([Пользователь [Person]])
-        FE[Микросервис Frontend [Component]]
-        BE[Микросервис Backend [Django REST framework]]
-        DB[База данных [Container: SQLite]]
-        Test[Микросервис тестирования [Playwright, Locus]]
+Person(User, "Пользователь", "[Person]")
 
-        User --> FE
-        FE -->|API| BE
-        BE --> DB
-        Test --> DB
-        Test --> BE
-    end
+Boundary(b1, "") {
+  System(FE, "Микросервис Frontend", "[Component]")
+  System(BE, "Микросервис Backend", "[Django REST framework]")
+  SystemDb(DB, "База данных", "Container: [SQLite]")
+  System(TESTS, "Микросервис тестирования", "[Playwright, Locust]")
+}
 
-    style User fill:#003366,color:#ffffff
-    style FE fill:#4169e1,color:#ffffff
-    style BE fill:#4169e1,color:#ffffff
-    style DB fill:#4169e1,color:#ffffff
-    style Test fill:#4169e1,color:#ffffff
-
-    note bottom of System
-        Микросервисная система отслеживания данных о согласовании заявок на проведение ремонтных работ
-    end
+Rel(User, FE, "")
+BiRel(FE, BE, "API")
+Rel(BE, DB, "API")
+Rel(TESTS, DB, "API")
